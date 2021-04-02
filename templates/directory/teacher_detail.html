@@ -10,7 +10,11 @@
 			      	<hr>
 			    	<div class="card-text">
                         <div class="card mb-4">
-                            <img class="card-img-top" src="{{ object.image.url }}" width="250px" height="auto">
+							{% if object.image %}
+                            <img class="card-img-top" src="{{ object.image.url }}" width="250px" height="auto" alt="{{ object.first_name }} {{ object.last_name }}">
+							{% else %}
+							<img class="card-img-top" src="{{ MEDIA_URL }} default.jpg" width="250px" height="auto"">
+							{% endif %}
                         </div>
 			    		<p class="text-muted mb-0" style="font-size: 12px">First Name:</p>
 			    		<p>{{ object.first_name }}</p>

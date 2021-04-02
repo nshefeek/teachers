@@ -12,7 +12,7 @@ class CsvFile(models.Model):
         return f"File id: {self.id}"
 
 class ImageZipFile(models.Model):
-    file_name = models.FileField(upload_to='images')
+    file_name = models.FileField(upload_to='zip')
     uploaded = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

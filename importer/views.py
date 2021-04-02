@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import CsvFile, ImageZipFile
 from .forms import CsvFileModelForm, ImageZipFileForm
 from directory.models import Teacher
@@ -13,27 +13,25 @@ def import_csv_view(request):
         form.save()
         form = CsvFileModelForm()
         obj = CsvFile.objects.get(loaded=False)
-        print(type(obj))
-        with open(obj.file_name.path, 'r') as f:
+        with open(obj.file_name.path, 'r', encoding='utf-8') as f:
             reader = csv.reader(f)
             for line, row in enumerate(reader):
-                # print(row)
+                print(row)
                 # row = ','.join(row).replace(r'\xa0', ' ').split()
-                # print(row)
-                if line == 0:
+                if line == 0 or not row[0]:
                     continue
                 first_name = row[0]
                 last_name = row[1]
-                image = None if row[2] == r'\xa0' else row[2]
+                image = 'profile_pics/'+row[2].strip() if row[2].strip() else 'default.jpg'
                 email = row[3]
                 phone = row[4]
                 room = row[5]
-                subjects = ', '.join(row[6].split(',')[:5])
+                subjects = ', '.join(row[6].split(',')[:5]).title()
                 try:
                     Teacher.objects.create(
                     first_name = first_name,
                     last_name = last_name,
-                    image = image,
+                    image = image, 
                     email = email,
                     phone = phone,
                     room = room,
@@ -48,10 +46,9 @@ def import_csv_view(request):
 
 def import_jpgs_view(request):
     form = ImageZipFileForm(request.POST or None, request.FILES or None)
-    print(form)
     if form.is_valid():
         form.save()
+        return redirect('importer:import-files')
+    else:
         form = ImageZipFileForm()
-        obj = ImageZipFile.objects.get(loaded=False)
-
     return render(request, 'importer/import.html', {'image_form': form})
