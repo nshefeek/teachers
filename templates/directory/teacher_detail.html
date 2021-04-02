@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% get_media_prefix as MEDIA_URL %}
+{% block title %} {{ object.first_name }} {{ object.last_name }} {% endblock %}
+{% block content %}
+    <div class="container mx-auto">
+	    <div class="row">
+	    	<div class="col-sm-12 col-md-12 col-lg-3 pb-4">
+		    	<div class="card p-4">
+			      	<hr>
+			    	<div class="card-text">
+                        <div class="card mb-4">
+                            <img class="card-img-top" src="{{ object.image.url }}" width="250px" height="auto">
+                        </div>
+			    		<p class="text-muted mb-0" style="font-size: 12px">First Name:</p>
+			    		<p>{{ object.first_name }}</p>
+			    		<p class="text-muted mb-0" style="font-size: 12px">Last Name:</p>
+				  		<p>{{ object.last_name }}</p>
+				  		<p class="text-muted mb-0" style="font-size: 12px">Email:</p>
+				  		<p>{{ object.email }} </p>
+                        <p class="text-muted mb-0" style="font-size: 12px">Phone:</p>
+				  		<p>{{ object.phone }} </p>
+                        <p class="text-muted mb-0" style="font-size: 12px">Room:</p>
+				  		<p>{{ object.room }} </p>
+                        <p class="text-muted mb-0" style="font-size: 12px">Subjects:</p>
+				  		<p>{{ object.subjects }} </p>
+			        </div>
+		    	</div>
+		  	</div>
+		    <div class="col-sm-12 col-md-12 col-lg-9 pb-4">
+		    	...
+		    </div> 
+		</div>
+	</div>
+{% endblock %}

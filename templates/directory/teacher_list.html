@@ -1,34 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-    </head>
-    <body>
-        <table>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Room</th>
-            <th>Subjects</th>
-            {% for object in object_list %}
-            <tr>
-                <td>{{ object.first_name }}</td>
-                <td>{{ object.last_name }}</td>
-                <td>{{ object.email }}</td>
-                <td>{{ object.phone }}</td>
-                <td>{{ object.room }}</td>
-                <td>{{ object.subjects }}</td>
-            </tr>
-            {% endfor %}
+{% extends 'base.html' %}
+{% block title %}Home::Teacher Listing{% endblock %}
+{% block content %}
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th class="w-25">Name</th>
+                    <th class="w-25">Email</th>
+                    <th class="w-25">Phone</th>
+                    <th class="w-10">Room</th>
+                    <th class="w-50">Subjects</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for object in object_list %}
+                <tr>
+                    <td><a href="{% url 'directory:detail' object.id %}"> {{ object.first_name }} {{ object.last_name }}</td>
+                    <td>{{ object.email }}</td>
+                    <td>{{ object.phone }}</td>
+                    <td>{{ object.room }}</td>
+                    <td>{{ object.subjects }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
         </table>
-
-        <form action="{% url 'import' %}" method="POST" class="ui form" enctype="multipart/form-data">
-            {% csrf_token %}
-            <button type="submit" class="ui button primary">Import</button>
-        </form>
-    </body>
-</html>
+{% endblock %}

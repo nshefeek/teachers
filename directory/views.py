@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 from .models import Teacher
 
@@ -7,7 +7,9 @@ class TeacherListView(ListView):
     model = Teacher
 
 class TeacherDetailView(DetailView):
-    pass
-
-def import_csv_view(request):
-    return render(request, 'import.html')
+    model = Teacher
+    
+    def get_object(self):
+        print(self.request)
+        id_ = self.kwargs.get("id")
+        return get_object_or_404(Teacher, id=id_)
