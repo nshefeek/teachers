@@ -1,15 +1,5 @@
 from django import forms
-from .models import CsvFile, ImageZipFile, MultipleFiles
-
-class CsvFileModelForm(forms.ModelForm):
-    class Meta:
-        model = CsvFile
-        fields = ('file_name',)
-
-class ImageZipFileForm(forms.ModelForm):
-    class Meta:
-        model = ImageZipFile
-        fields = ('file_name',)
+from .models import MultipleFiles
 
 class MultipleFileForms(forms.ModelForm):
     class Meta:

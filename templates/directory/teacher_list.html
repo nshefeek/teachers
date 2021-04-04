@@ -1,7 +1,23 @@
 {% extends 'base.html' %}
 {% block title %}Home::Teacher Listing{% endblock %}
 {% block content %}
-        <table class="table table-bordered table-hover">
+<div class="form-row">
+    <form action="{% url 'directory:search' %}">
+        <label for="choice">Filter by:</label>
+            <select id="choice" name="choice">
+                <option value="lname">Last Name</option>
+                <option value="subject">Subject</option>
+            </select>
+            <input type="text" class="form" name="q" placeholder="Search term...">
+            <span class="input-group-btn"></span>
+                <button class="btn btn-default" type="button">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+            </span>
+    </form>
+</div>
+<div label="table">
+        <table class="table table-bordered table-striped table-hover mt-3">
             <thead class="thead-dark">
                 <tr>
                     <th class="w-25">Name</th>
@@ -23,4 +39,10 @@
                 {% endfor %}
             </tbody>
         </table>
+        </div>
+    </div>
+
+        
+{% endblock %}
+{% block scripts %}
 {% endblock %}

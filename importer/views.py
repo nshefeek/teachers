@@ -1,10 +1,8 @@
 from django.shortcuts import render, redirect, reverse
-from .models import CsvFile, ImageZipFile, MultipleFiles
-from .forms import CsvFileModelForm, ImageZipFileForm, MultipleFileForms
 from directory.models import Teacher
+from .models import MultipleFiles
+from .forms import MultipleFileForms
 from django.contrib.auth.decorators import login_required
-
-import io
 import csv
 from zipfile import ZipFile
 
@@ -21,7 +19,6 @@ def import_file_view(request):
         with open(csv_file, 'r', encoding='utf-8') as f:
             reader = csv.reader(f)
             for line, row in enumerate(reader):
-                print(row)
                 if line == 0 or not row[0]:
                     continue
                 first_name = row[0]
@@ -51,19 +48,4 @@ def import_file_view(request):
         file_obj.zip_extracted = True
         file_obj.save()
         
-
     return render(request, 'importer/import.html', {'form': form})
-
-# @login_required
-# def import_images_view(request):
-#     form = ImageZipFileForm(request.POST or None, request.FILES or None)
-#     if form.is_valid():
-#         form.save()
-#         zip_file = ImageZipFile.objects.get(request.FILES['file_name'])
-#         with ZipFile(zip_file) as f:
-#             f.extract('profile_pics/')
-#         return redirect('importer:import-files')
-#     else:
-#         form = ImageZipFileForm()
-
-#     return render(request, 'importer/import.html', {'form': form})
