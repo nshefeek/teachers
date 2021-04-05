@@ -36,4 +36,4 @@ blocks:
         - name: Style Check
           commands:
             - pip install flake8
-            - flake8 teachers/ --max-line-length=127
+            - flake8 . --max-line-length=127
