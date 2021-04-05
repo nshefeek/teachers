@@ -1,6 +1,6 @@
 import base64
 import tempfile
-from django.test import TestCase, override_settings
+from django.test import TestCase
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import models
 from io import BytesIO
