@@ -12,13 +12,15 @@
      -e DJANGO_SUPERUSER_USERNAME=admin \
      -e DJANGO_SUPERUSER_PASSWORD=sekret1 \
      -e DJANGO_SUPERUSER_EMAIL=admin@example.com \
-     teachers
+     nshefeek/teachers
 ```
  - Go to http://localhost:8020 in your browser.
  - To import data load CSV file and zip file containing profile images from your file system
 
 
 ## Further Improvements:
+ - Using CDN to deliver static files
+ - Caching
  - Error logging
  - Cleaning up files
  - Event logging
