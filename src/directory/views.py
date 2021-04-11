@@ -25,5 +25,5 @@ class SearchResultsView(ListView):
         q = self.request.GET['q']
         choice = self.request.GET['choice']
         if choice == 'subject':
-            return Teacher.objects.filter(subjects__icontains=q)
-        return Teacher.objects.filter(last_name__icontains=q)
+            return Teacher.objects.filter(subjects__title__istartswith=q)
+        return Teacher.objects.filter(last_name__istartswith=q)

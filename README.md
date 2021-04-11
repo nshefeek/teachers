@@ -1,5 +1,9 @@
 # Teachers Yellow Pages
 
+## About
+
+A simple teachers directory app.
+
 ## Demo
  - To see a demo version of the project download and install Docker
  - Pull the docker image of the project from Dockerhub

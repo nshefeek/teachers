@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from directory.models import Teacher
+from directory.models import Teacher, Subject
 from .models import MultipleFiles
 from .forms import MultipleFileForms
 from django.contrib.auth.decorators import login_required
