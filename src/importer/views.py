@@ -5,6 +5,18 @@ from .forms import MultipleFileForms
 from django.contrib.auth.decorators import login_required
 import csv
 from zipfile import ZipFile
+from teachers.settings import BASE_DIR
+
+
+# helper function for subject object creation
+# can be removed if subjects are added via admin panel
+def create_subjects(subject_list):
+    subjects_in_db = set(subject[-1] for subject in Subject.objects.values_list())
+    subjects_not_present = set(subject_list) - subjects_in_db
+    if subjects_not_present:
+        for subject in subjects_not_present:
+            Subject.objects.create(title=subject)
+
 
 @login_required
 # Create your views here.
@@ -27,22 +39,24 @@ def import_file_view(request):
                 email = row[3]
                 phone = row[4]
                 room = row[5]
-                subjects = ', '.join(row[6].split(',')[:5]).title()
+                subjects = row[6].title().split(', ')[:5]
+                create_subjects(subjects)   # Comment out this line if subjects are added via admin panel
                 try:
-                    Teacher.objects.create(
+                    teacher = Teacher.objects.create(
                     first_name = first_name,
                     last_name = last_name,
                     image = image, 
                     email = email,
                     phone = phone,
                     room = room,
-                    subjects = subjects,
                 )
+                    teacher.subjects.add(*[Subject.objects.get(title=subject).id for subject in subjects])
+
                 except Exception as e:
-                    print(e, email)
+                    print(e, email)     # Can be improved by using logging module to log errors
 
         with ZipFile(zip_file, 'r') as f:
-            f.extractall('media/profile_pics/')
+            f.extractall(BASE_DIR/'media/profile_pics/')
 
         file_obj.csv_activated = True
         file_obj.zip_extracted = True

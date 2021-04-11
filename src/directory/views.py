@@ -7,7 +7,7 @@ from .models import Teacher
 class TeacherListView(ListView):
     model = Teacher
     form_class = SearchForm
-
+    
 
 class TeacherDetailView(DetailView):
     model = Teacher

@@ -24,7 +24,7 @@
 			<p class="text-muted mb-0" style="font-size: 12px">Room:</p>
 			<p>{{ object.room }} </p>
 			<p class="text-muted mb-0" style="font-size: 12px">Subjects:</p>
-			<p>{{ object.subjects }} </p>
+			<p><ul>{% for subject in object.subjects.all %}<li>{{ subject }}</li>{% endfor %}</ul></p>
 		</div>
 	</div>
 </div>  
