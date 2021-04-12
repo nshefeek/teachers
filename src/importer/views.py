@@ -50,7 +50,11 @@ def import_file_view(request):
                     phone = phone,
                     room = room,
                 )
-                    teacher.subjects.add(*[Subject.objects.get(title=subject).id for subject in subjects])
+                    # teacher.subjects.add(*[Subject.objects.get(title=subject).id for subject in subjects])
+                    teacher.subjects.add(
+                        *Subject.objects.filter(
+                            title__in=subjects
+                            ).values_list("id", flat=True))
 
                 except Exception as e:
                     print(e, email)     # Can be improved by using logging module to log errors
